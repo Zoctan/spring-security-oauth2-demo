@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>豆瓣</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+<h1>豆瓣登录</h1>
+
+<div class="container">
+    <button class="button" value="QQ登录" onclick="toQQAuthorize()">QQ登录</button>
+</div>
+
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    $(function () {
+        /**
+         * 用户访问客户端，后者将前者导向认证服务器，即跳转到登录页面
+         */
+        function toQQAuthorize() {
+            window.location.href = "http://localhost:7500/toQQAuthorize"
+        }
+    })
+</script>
+
+</body>
+</html>

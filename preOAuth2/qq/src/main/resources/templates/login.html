@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>QQ</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+<h1>QQ登录</h1>
+
+<div class="container">
+    <label>用户</label><input title="username" type="text" name="username"/><br/>
+    <label>密码</label><input title="password" type="password" name="password"/><br/>
+    <button class="button" value="授权登陆" onclick="login()">授权登陆</button>
+</div>
+
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    $(function () {
+        function login() {
+            window.location.href = "http://localhost:7000/login";
+        }
+    })
+</script>
+</body>
+</html>
