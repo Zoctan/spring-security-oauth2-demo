@@ -21,7 +21,6 @@ import java.net.UnknownHostException;
  * @date 2018/06/22
  */
 @Controller
-@ResponseBody
 public class OAuthController {
     @Value("${server.port}")
     private Integer douBanPort;
@@ -36,20 +35,20 @@ public class OAuthController {
     }
 
     /**
-     * （A）用户访问豆瓣客户端，豆瓣将用户导向QQ认证服务器，即跳转到登录页面
+     * （A）用户访问豆瓣客户端，豆瓣将用户导向QQ认证服务器，即跳转到QQ登录页面
      *
      * @param response 响应
      * @throws IOException IO异常
      */
     @GetMapping("toQQAuthorize")
     public void toQQAuthorize(HttpServletResponse response) throws IOException {
-        String to = "http://localhost:%d/authorize?" +
+        String to = String.format("http://localhost:%d/authorize?" +
                 "response_type=code" + "&" +
                 "client_id=abc123" + "&" +
                 "scope=userinfo" + "&" +
                 "state=test" + "&" +
-                "redirect_uri=http://localhost:%d/index";
-        response.sendRedirect(String.format(to, qqPort, douBanPort));
+                "redirect_uri=http://localhost:%d/index", qqPort, douBanPort);
+        response.sendRedirect(to);
     }
 
     @RequestMapping("index")
@@ -57,7 +56,7 @@ public class OAuthController {
         /**
          * （D）客户端收到授权码，附上早先的"重定向URI"，向认证服务器申请令牌。这一步是在客户端的后台的服务器上完成的，对用户不可见。
          */
-        String accessToken = restTemplate.getForObject("http://" + getLocalHost() + ":7000/getTokenByCode?" +
+        String accessToken = restTemplate.getForObject("http://" + getLocalHost() + ":7000/token?" +
                 "grant_type=authorization_code&" +
                 "code=xxx&" +
                 "redirect_uri=http://" + getLocalHost() + ":7001/index", String.class);
@@ -75,6 +74,7 @@ public class OAuthController {
 
 
     @GetMapping("getUserInfo")
+    @ResponseBody
     public String getUserInfo(HttpServletRequest request) throws Exception {
         Object username = request.getSession().getAttribute("username");
         return "Tom 18811311416";
