@@ -1,29 +1,57 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>豆瓣</title>
-    <link rel="stylesheet" href="/css/main.css">
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="base (title='豆瓣')">
 
-<body>
-<h1>豆瓣登录</h1>
+<style th:fragment="style">
+    .loginCard {
+        width: 350px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -180px 0 0 -175px;
+    }
+</style>
 
-<div class="container">
-    <button class="button" value="QQ登录" onclick="toQQAuthorize()">QQ登录</button>
-</div>
+<div th:fragment="content">
+    <div class="card loginCard">
+        <div class="card-header">豆瓣登录</div>
+        <div class="card-body">
+            <form>
+                <div class="form-group row">
+                    <label for="username" class="col-sm-3 col-form-label">用户</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" value="username" id="username" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-3 col-form-label">密码</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" value="password" id="password" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <button type="button" data-toggle="tooltip" title="前方施工，暂时不能使用"
+                                class="btn btn-success form-control" disabled>登陆
+                        </button>
+                    </div>
+                </div>
+                <hr/>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="QQ登录"
+                        class="btn btn-sm btn-outline-primary" onclick="toAuthorize()">
+                    <i class="fa fa-qq"></i>
+                </button>
+            </form>
+        </div>
+    </div>
 
-<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
-<script>
-    $(function () {
-        /**
-         * 用户访问客户端，后者将前者导向认证服务器，即跳转到登录页面
-         */
-        function toQQAuthorize() {
-            window.location.href = "http://localhost:7500/toQQAuthorize"
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function toAuthorize() {
+            window.location.href = [[${toAuthorizeURL}]]
         }
-    })
-</script>
 
-</body>
+        /*]]>*/
+    </script>
+</div>
 </html>

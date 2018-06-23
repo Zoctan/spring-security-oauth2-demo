@@ -1,10 +1,10 @@
 package com.zoctan.controller;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.UnknownHostException;
+import java.util.UUID;
 
 /**
  * 豆瓣认证控制器
@@ -22,62 +22,88 @@ import java.net.UnknownHostException;
  */
 @Controller
 public class OAuthController {
-    @Value("${server.port}")
-    private Integer douBanPort;
-    @Value("${qq.port}")
-    private Integer qqPort;
+    @Value("${qqURL}")
+    private String qqURL;
+    @Value("${doubanURL}")
+    private String doubanURL;
+    @Resource
+    private HttpServletRequest request;
     @Resource
     private RestTemplate restTemplate;
+    /**
+     * 模拟数据库里的数据
+     */
+    private final static String CLIENT_ID = "douban";
+    private final static String CLIENT_SECRET = "douban123";
+    /**
+     * 防止跨站点请求伪造
+     * 该值必须保证不可猜测，并且浏览器保存时要同源保护
+     */
+    private final static String STATE = UUID.randomUUID().toString();
+    /**
+     * 请求的授权范围
+     */
+    private final static String SCOPE = "userAllInfo";
 
-    private static String getLocalHost() throws UnknownHostException {
-        //return InetAddress.getLocalHost().getHostAddress();
-        return "10.100.19.211";
+    @GetMapping("/login")
+    public String login(final ModelMap map) {
+        map.addAttribute("toAuthorizeURL", this.doubanURL + "/toAuthorize");
+        return "login";
     }
 
     /**
      * （A）用户访问豆瓣客户端，豆瓣将用户导向QQ认证服务器，即跳转到QQ登录页面
-     *
-     * @param response 响应
-     * @throws IOException IO异常
      */
-    @GetMapping("toQQAuthorize")
-    public void toQQAuthorize(HttpServletResponse response) throws IOException {
-        String to = String.format("http://localhost:%d/authorize?" +
+    @GetMapping("/toAuthorize")
+    public void toAuthorize(final HttpServletResponse response) throws IOException {
+        final String to = String.format("%s/authorize?" +
                 "response_type=code" + "&" +
-                "client_id=abc123" + "&" +
-                "scope=userinfo" + "&" +
-                "state=test" + "&" +
-                "redirect_uri=http://localhost:%d/index", qqPort, douBanPort);
+                "client_id=%s" + "&" +
+                "client_secret=%s" + "&" +
+                "scope=%s" + "&" +
+                "state=%s" + "&" +
+                "redirect_uri=%s/index", this.qqURL, CLIENT_ID, CLIENT_SECRET, SCOPE, STATE, this.doubanURL);
         response.sendRedirect(to);
     }
 
-    @RequestMapping("index")
-    public String index(String code, HttpServletRequest request) throws Exception {
-        /**
-         * （D）客户端收到授权码，附上早先的"重定向URI"，向认证服务器申请令牌。这一步是在客户端的后台的服务器上完成的，对用户不可见。
-         */
-        String accessToken = restTemplate.getForObject("http://" + getLocalHost() + ":7000/token?" +
-                "grant_type=authorization_code&" +
-                "code=xxx&" +
-                "redirect_uri=http://" + getLocalHost() + ":7001/index", String.class);
+    /**
+     * 首页
+     */
+    @GetMapping("/index")
+    public String index(@RequestParam("code") final String code,
+                        @RequestParam("state") final String state,
+                        @RequestParam("scope") final String scope,
+                        final ModelMap map) {
+        if (!STATE.equals(state)) {
+            map.addAttribute("message", "遭受CSRF攻击");
+            return "index";
+        }
 
-        /**
-         * 发起通过token换用户信息的请求
-         */
-        String username = restTemplate.getForObject("http://" + getLocalHost() + ":7000/getUserinfoByToken?" +
-                "access_token=yyy", String.class);
+        if (!SCOPE.equals(scope)) {
+            map.addAttribute("message", "授权范围被限制为" + scope);
+        }
 
-        request.getSession().setAttribute("username", username);
+        // （D）客户端收到授权码，附上"重定向URI"，向认证服务器申请令牌。这一步是在客户端的后台的服务器上完成的，对用户不可见
+        final String getAccessTokenURL = String.format("%s/token?" +
+                "grant_type=authorization_code" + "&" +
+                "code=%s" + "&" +
+                "redirect_uri=%s/index", this.qqURL, code, this.doubanURL);
+        final String accessToken = this.restTemplate.getForObject(getAccessTokenURL, String.class);
 
+        // 通过token请求用户信息
+        final String getUserInfoURL = String.format("%s/getUserInfoByToken?" +
+                "access_token=%s", this.qqURL, accessToken);
+        final String userInfo = this.restTemplate.getForObject(getUserInfoURL, String.class);
+
+        this.request.getSession().setAttribute("userInfo", userInfo);
+
+        map.addAttribute("getUserInfoURL", this.doubanURL + "/getUserInfo");
         return "index";
     }
 
-
-    @GetMapping("getUserInfo")
+    @GetMapping("/getUserInfo")
     @ResponseBody
-    public String getUserInfo(HttpServletRequest request) throws Exception {
-        Object username = request.getSession().getAttribute("username");
-        return "Tom 18811311416";
+    public String getUserInfo() {
+        return this.request.getSession().getAttribute("userInfo").toString();
     }
-
 }
