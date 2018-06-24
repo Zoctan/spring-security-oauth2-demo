@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
 
     <style>
         .footer {
@@ -17,10 +18,12 @@
         }
     </style>
     <style th:include="::style"></style>
+
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-
 <header class="header"></header>
 <div class="container" th:include="::content"></div>
 
@@ -31,9 +34,6 @@
     </div>
 </footer>
 
-<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script th:inline="javascript" th:if="${alertMsg}">alert('[[${alertMsg}]]')</script>
-<script th:inline="javascript" th:include="::script"></script>
 </body>
 </html>

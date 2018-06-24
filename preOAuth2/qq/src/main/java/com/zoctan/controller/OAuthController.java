@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Map;
 import java.util.UUID;
@@ -23,8 +25,8 @@ import java.util.UUID;
 public class OAuthController {
     @Value("${qqURL}")
     private String qqURL;
-    @Value("${doubanURL}")
-    private String doubanURL;
+    @Value("${bankURL}")
+    private String bankURL;
     @Resource
     private HttpServletRequest request;
     /**
@@ -32,12 +34,16 @@ public class OAuthController {
      */
     private final static String USERNAME = "qq";
     private final static String PASSWORD = "qq123";
-    private final static String CLIENT_ID = "douban";
-    private final static String CLIENT_SECRET = "douban123";
+    private final static String CLIENT_ID = "bank";
+    private final static String CLIENT_SECRET = "bank123";
+    /**
+     * 所有可允许的权限
+     */
+    private final static String[] ALL_SCOPE = {"userAllInfo", "userPartInfo"};
     /**
      * 只允许的授权范围
      */
-    private final static String SCOPE = "userPartInfo";
+    private final static String SCOPE = ALL_SCOPE[1];
 
     /**
      * 验证客户端
@@ -67,15 +73,15 @@ public class OAuthController {
                             @RequestParam("redirect_uri") final String redirectUri,
                             final ModelMap map) {
         if (!"code".equals(responseType)) {
-            map.addAttribute("message", "授权码模式的获取 Authorization Code 阶段只能使用 code");
-            return "tip";
+            map.addAttribute("alertMsg", "授权码模式的获取 Authorization Code 阶段只能使用 code");
+            return "login";
         }
 
         // 验证客户端
         final String validateClient = validateClient(clientId, clientSecret);
         if (validateClient != null) {
-            map.addAttribute("message", validateClient);
-            return "tip";
+            map.addAttribute("alertMsg", validateClient);
+            return "login";
         }
 
         // 开启session记录状态
@@ -95,22 +101,23 @@ public class OAuthController {
      * （C）假设用户给予授权，认证服务器将用户导向客户端事先指定的"重定向URI"（Redirection URI），同时附上一个授权码
      */
     @PostMapping("/login")
-    public String login(@RequestBody final Map<String, Object> map) {
+    public void login(@RequestBody final Map<String, Object> map,
+                      final HttpServletResponse response) throws IOException {
         final String username = map.get("username").toString();
         final String password = map.get("password").toString();
         // 验证用户名密码是否正确
         if (!USERNAME.equals(username) && !PASSWORD.equals(password)) {
-            return null;
+            return;
         }
-        // 获取session
+        // 获取 session
         final HttpSession session = this.request.getSession();
         final String clientId = session.getAttribute("clientId").toString();
         final String state = session.getAttribute("state").toString();
         final String redirectUri = session.getAttribute("redirectUri").toString();
         String scope = session.getAttribute("scope").toString();
-        // 按scope范围授权客户端
-        // 如果某些权限不允许，返回实际的scope范围
-        // 比如这里只允许客户端获得部分用户名信息userPartInfo的权限而不是完整的userAllInfo
+        // 按 scope 范围授权客户端
+        // 如果某些权限不允许，返回实际的 scope 范围
+        // 比如这里只允许客户端获得部分用户名信息 userPartInfo 的权限而不是完整信息 userAllInfo
         if (!scope.contains(SCOPE)) {
             scope = SCOPE;
         }
@@ -122,9 +129,9 @@ public class OAuthController {
                 "code=%s" + "&" +
                 "state=%s" + "&" +
                 "scope=%s", redirectUri, code, state, scope);
-        // 此时，用户和认证服务器之间的操作就结束了，可以移除session
+        // 此时，用户和认证服务器之间的操作就结束了，可以移除 session
         session.invalidate();
-        return "redirect:" + to;
+        response.sendRedirect(to);
     }
 
     /**
@@ -137,40 +144,49 @@ public class OAuthController {
                         @RequestParam("redirect_uri") final String redirectUri,
                         final ModelMap map) {
         if (!"authorization_code".equals(grantType)) {
-            map.addAttribute("message", "授权码模式的通过 Authorization Code 获取 Access Token 阶段只能使用 authorization_code");
-            return "tip";
+            map.addAttribute("alertMsg", "授权码模式的通过 Authorization Code 获取 Access Token 阶段只能使用 authorization_code");
+            return "login";
         }
         final String decode = new String(Base64Utils.decodeFromString(code));
 
-        // 验证客户端client_id、client_secret是否正确
+        //--------- 请求头
+        // 验证客户端 client_id、client_secret 是否正确
         final String authorization = this.request.getHeader("Authorization");
         final String client = new String(Base64Utils.decodeFromString(authorization.replace("Basic ", "")));
-        final String clientId = client.split(" ")[0];
-        final String clientSecret = client.split(" ")[1];
-
-        // 验证客户端
-        final String validateClient = validateClient(clientId, clientSecret);
-        if (validateClient != null) {
-            map.addAttribute("message", validateClient);
-            return "tip";
+        final String clientId = client.split(":")[0];
+        final String clientSecret = client.split(":")[1];
+        final String validateClient1 = validateClient(clientId, clientSecret);
+        if (validateClient1 != null) {
+            map.addAttribute("alertMsg", validateClient1);
+            return "login";
         }
 
-        // 重定向的URL不同
+        //--------- 请求参数
+        // 验证客户端
+        final String clientIdFromCode = decode.split(" ")[0];
+        if (!clientId.equals(clientIdFromCode)) {
+            map.addAttribute("alertMsg", "客户端不一致");
+            return "login";
+        }
+
+        // 重定向 URL 不一致
         final String redirectUriFromCode = decode.split(" ")[1];
         if (!redirectUri.equals(redirectUriFromCode)) {
-            map.addAttribute("message", "请勿恶意窃取 Authorization Code");
-            return "tip";
+            map.addAttribute("alertMsg", "重定向 URL 不一致");
+            return "login";
         }
 
         // 如果当前时间不在过期时间之前
         final String expirationFromCode = decode.split(" ")[2];
         final LocalTime expiration = LocalTime.parse(expirationFromCode);
         if (!LocalTime.now().isBefore(expiration)) {
-            map.addAttribute("message", "token 已过期");
-            return "tip";
+            map.addAttribute("alertMsg", "token 已过期");
+            return "login";
         }
 
-        // 返回token
+        // access_token 可以使用 jwt，做到无状态验证用户角色
+        // refresh_token 应该和
+        // 这里只是演示，所以随便弄了个 token
         return String.format("{" +
                 "access_token: %s," +
                 "token_type: bearer," +
@@ -186,8 +202,8 @@ public class OAuthController {
     @GetMapping("/getUserInfoByToken")
     @ResponseBody
     public String getUserInfoByToken(@RequestParam("access_token") final String accessToken) {
-        // 判断token是否正确
-
+        // 判断 token 是否正确
+        // 这里暂不考虑
         return "{" +
                 "username: zoctan," +
                 "mobile: 12345678901," +
