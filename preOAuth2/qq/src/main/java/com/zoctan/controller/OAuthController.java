@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Base64Utils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalTime;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -101,10 +103,9 @@ public class OAuthController {
      * （C）假设用户给予授权，认证服务器将用户导向客户端事先指定的"重定向URI"（Redirection URI），同时附上一个授权码
      */
     @PostMapping("/login")
-    public void login(@RequestBody final Map<String, Object> map,
+    public void login(@RequestParam("username") final String username,
+                      @RequestParam("password") final String password,
                       final HttpServletResponse response) throws IOException {
-        final String username = map.get("username").toString();
-        final String password = map.get("password").toString();
         // 验证用户名密码是否正确
         if (!USERNAME.equals(username) && !PASSWORD.equals(password)) {
             return;
@@ -147,20 +148,24 @@ public class OAuthController {
             map.addAttribute("alertMsg", "授权码模式的通过 Authorization Code 获取 Access Token 阶段只能使用 authorization_code");
             return "login";
         }
+        // 检查 code 是否使用过
+        // 这里需要先缓存 code 才能检查，为了方便略过该检查
+
         final String decode = new String(Base64Utils.decodeFromString(code));
 
+        // 为了方便验证暂时不用
         //--------- 请求头
         // 验证客户端 client_id、client_secret 是否正确
+        /*
         final String authorization = this.request.getHeader("Authorization");
         final String client = new String(Base64Utils.decodeFromString(authorization.replace("Basic ", "")));
         final String clientId = client.split(":")[0];
         final String clientSecret = client.split(":")[1];
-        final String validateClient1 = validateClient(clientId, clientSecret);
-        if (validateClient1 != null) {
-            map.addAttribute("alertMsg", validateClient1);
+        final String validateClient = validateClient(clientId, clientSecret);
+        if (validateClient != null) {
+            map.addAttribute("alertMsg", validateClient);
             return "login";
         }
-
         //--------- 请求参数
         // 验证客户端
         final String clientIdFromCode = decode.split(" ")[0];
@@ -168,11 +173,13 @@ public class OAuthController {
             map.addAttribute("alertMsg", "客户端不一致");
             return "login";
         }
+        */
 
         // 重定向 URL 不一致
         final String redirectUriFromCode = decode.split(" ")[1];
         if (!redirectUri.equals(redirectUriFromCode)) {
             map.addAttribute("alertMsg", "重定向 URL 不一致");
+            System.out.println("重定向 URL 不一致");
             return "login";
         }
 
@@ -181,6 +188,7 @@ public class OAuthController {
         final LocalTime expiration = LocalTime.parse(expirationFromCode);
         if (!LocalTime.now().isBefore(expiration)) {
             map.addAttribute("alertMsg", "token 已过期");
+            System.out.println("token 已过期");
             return "login";
         }
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="base (title='银行')">
+
+<div th:fragment="content">
+    <h1>授权回调页面</h1>
+
+    <div class="container">
+        <div id="info"></div>
+        <span th:text="${message}"></span>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: [[${getURL}]],
+                dataType: "text",
+                success: function (data) {
+                    $("#info").html(data);
+                }
+            })
+        })
+        /*]]>*/
+    </script>
+</div>
+</html>

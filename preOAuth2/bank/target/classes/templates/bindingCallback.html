@@ -3,10 +3,10 @@
       th:replace="base (title='银行')">
 
 <div th:fragment="content">
-    <h1>授权页</h1>
+    <h1>授权回调页面</h1>
 
     <div class="container">
-        <div id="userInfo"></div>
+        <div id="info"></div>
         <span th:text="${message}"></span>
     </div>
 
@@ -14,11 +14,11 @@
         /*<![CDATA[*/
         $(function () {
             $.ajax({
-                type: "POST",
-                url: [[${getUserInfoURL}]],
+                type: "GET",
+                url: [[${getURL}]],
                 dataType: "text",
                 success: function (data) {
-                    $("#userInfo").html(data);
+                    $("#info").html(data);
                 }
             })
         })
