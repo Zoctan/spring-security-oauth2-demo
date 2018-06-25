@@ -22,6 +22,8 @@
     <properties>
         <!-- 版本太高会无法启动子模块 fixme -->
         <spring.boot.version>1.5.14.RELEASE</spring.boot.version>
+        <nekohtml.version>1.9.22</nekohtml.version>
+        <fastjson.version>1.2.47</fastjson.version>
         <!-- 项目设置 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -36,6 +38,18 @@
                 <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.nekohtml</groupId>
+                <artifactId>nekohtml</artifactId>
+                <version>${nekohtml.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

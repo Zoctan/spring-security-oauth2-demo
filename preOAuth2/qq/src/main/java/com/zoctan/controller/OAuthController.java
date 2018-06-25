@@ -1,5 +1,8 @@
 package com.zoctan.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.zoctan.entity.Result;
+import com.zoctan.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -193,15 +197,15 @@ public class OAuthController {
         }
 
         // access_token 可以使用 jwt，做到无状态验证用户角色
-        // refresh_token 应该和
         // 这里只是演示，所以随便弄了个 token
-        return String.format("{" +
-                "access_token: %s," +
-                "token_type: bearer," +
-                "expires_in: %d," +
-                "refresh_token: %s," +
-                "scope: %s" +
-                "}", UUID.randomUUID().toString(), 3600, UUID.randomUUID().toString(), SCOPE);
+        // refresh_token 应该和 access_token 存在关联
+        final Result result = Result.Builder.aResult()
+                .withAccessToken(UUID.randomUUID().toString())
+                .withExpiresIn(3600)
+                .withRefreshToken(UUID.randomUUID().toString())
+                .withScope(SCOPE)
+                .build();
+        return JSON.toJSONString(result);
     }
 
     /**
@@ -210,13 +214,13 @@ public class OAuthController {
     @GetMapping("/getUserInfoByToken")
     @ResponseBody
     public String getUserInfoByToken(@RequestParam("access_token") final String accessToken) {
-        // 判断 token 是否正确
-        // 这里暂不考虑
-        return "{" +
-                "username: zoctan," +
-                "mobile: 12345678901," +
-                "email: 123@qq.com" +
-                "}";
+        // 判断 token 是否正确，这里暂不考虑
+        final User user = new User();
+        user.setUsername("Zoctan");
+        user.setBirthday(new Date());
+        user.setPhone("12345678901");
+        user.setEmail("123@qq.com");
+        return JSON.toJSONString(user);
     }
 
 }
