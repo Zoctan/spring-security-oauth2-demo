@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="base (title='银行')">
+
+<style th:fragment="style">
+    .resultCard {
+        width: 500px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -280px 0 0 -250px;
+    }
+</style>
+
+<div th:fragment="content">
+    <div class="container">
+        <div class="card resultCard">
+            <div class="card-header">授权回调页面</div>
+            <div class="card-body">
+                <div class="alert alert-success" role="alert" th:text="${message}">></div>
+
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                包含 token 的响应内容
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                         data-parent="#accordionExample">
+                        <div class="card-body">
+                            <span th:text="${result}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                用户信息
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                         data-parent="#accordionExample">
+                        <div class="card-body">
+                            <span th:text="${userInfo}"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</html>

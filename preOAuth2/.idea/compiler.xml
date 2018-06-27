@@ -10,5 +10,8 @@
         <module name="qq" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="douban" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
