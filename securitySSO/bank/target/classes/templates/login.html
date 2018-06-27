@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="base (title='银行')">
+
+<style th:fragment="style">
+    .loginCard {
+        width: 350px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -180px 0 0 -175px;
+    }
+</style>
+
+<div th:fragment="content">
+    <div class="card loginCard">
+        <div class="card-header">银行登录</div>
+        <div class="card-body">
+            <form>
+                <div class="form-group row">
+                    <label for="username" class="col-sm-3 col-form-label">用户</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" value="username" id="username" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-3 col-form-label">密码</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" value="password" id="password" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <button type="button" data-toggle="tooltip" title="前方施工，暂时不能使用"
+                                class="btn btn-success form-control" disabled>登陆
+                        </button>
+                    </div>
+                </div>
+                <hr/>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="QQ登录"
+                        class="btn btn-sm btn-outline-primary" onclick="toAuthorize()">
+                    <i class="fa fa-qq"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function toAuthorize() {
+            window.location.href = [[${toAuthorizeURL}]]
+        }
+
+        /*]]>*/
+    </script>
+</div>
+</html>
