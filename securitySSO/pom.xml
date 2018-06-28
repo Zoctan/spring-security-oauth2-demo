@@ -18,7 +18,6 @@
     <modules>
         <module>bank</module>
         <module>qq</module>
-        <module>resource</module>
     </modules>
 
     <properties>

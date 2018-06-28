@@ -3,6 +3,7 @@ package com.zoctan.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -25,6 +26,8 @@ import java.util.concurrent.TimeUnit;
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     @Resource
     private AuthenticationManager authenticationManager;
+    @Resource
+    private UserDetailsService userDetailsService;
 
     @Bean
     public TokenStore tokenStore() {
@@ -54,7 +57,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         // 访问资源
         // curl -i -H "Authorization: Bearer {}" -X GET http://localhost:8000/image
         // 或者
-        // curl -i -X GET http://localhost:8000/image?access_token={}
+        // curl -i -X GET http://localhost:8000/image\?access_token={}
 
         //----密码模式
         // curl -i -X POST -d "username=user&password=123456&grant_type=password&client_id=resource&client_secret=resource123" http://localhost:8000/oauth/token
@@ -65,11 +68,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .secret("resource123")
                 .redirectUris("http://baidu.com")
                 .resourceIds("image")
-                .authorizedGrantTypes("authorization_code", "password", "refresh_token")
+                .authorizedGrantTypes("password", "refresh_token")
                 .scopes("read")
                 .authorities("client")
-                // 登录后自动确认授权
-                //.autoApprove(true)
                 // token 有效期1天
                 .accessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1))
                 // refreshToken 有效期3天
@@ -80,6 +81,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .authenticationManager(this.authenticationManager)
+                .userDetailsService(this.userDetailsService)
                 .tokenStore(this.tokenStore());
     }
 }

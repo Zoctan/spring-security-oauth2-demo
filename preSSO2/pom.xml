@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 基本信息 -->
+    <name>preSSO2</name>
+    <description>Security OAuth2 SSO demo</description>
+    <packaging>pom</packaging>
+
+    <!-- 作为子模块的父工程 -->
+    <groupId>com.zoctan</groupId>
+    <artifactId>preSSO2</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- 子模块 -->
+    <modules>
+        <module>qq</module>
+        <module>qqMail</module>
+    </modules>
+
+    <properties>
+        <!-- 版本太高会无法启动子模块 fixme -->
+        <spring.boot.version>1.5.14.RELEASE</spring.boot.version>
+        <nekohtml.version>1.9.22</nekohtml.version>
+        <fastjson.version>1.2.47</fastjson.version>
+        <!-- 项目设置 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.nekohtml</groupId>
+                <artifactId>nekohtml</artifactId>
+                <version>${nekohtml.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--指定打包插件 -->
+    <build>
+        <plugins>
+            <plugin>
+                <!--构建可执行的JAR -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

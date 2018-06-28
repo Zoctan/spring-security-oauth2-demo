@@ -8,8 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="bank" />
         <module name="qq" />
-        <module name="resource" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="resource" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

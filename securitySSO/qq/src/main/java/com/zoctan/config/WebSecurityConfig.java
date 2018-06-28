@@ -1,13 +1,14 @@
 package com.zoctan.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
@@ -19,23 +20,41 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Value("${oauth.username}")
+    private String username;
+    @Value("${oauth.password}")
+    private String password;
+
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {
+        // 用户信息保存在内存
         final InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user").password("123456").authorities("ROLE_USER").build());
+        manager.createUser(User.withUsername(this.username).password(this.password).authorities("ROLE_USER").build());
         return manager;
     }
 
     @Override
     public void configure(final HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .expressionHandler(new OAuth2WebSecurityExpressionHandler())
-                // localhost:8000/oauth/authorize?client_id=resource1&response_type=code&redirect_uri=http://www.baidu.com
-                .antMatchers("/oauth/**", "/error").permitAll()
-                .antMatchers("/image").access("#oauth2.hasScope('read') and hasRole('ROLE_USER')")
+                .requestMatchers().antMatchers("/oauth/**", "/login")
                 .and()
-                .formLogin();
+                .authorizeRequests()
+                .antMatchers("/oauth/**").authenticated()
+                .and()
+                //.csrf().disable()
+                .formLogin()
+                // 跳转登录页面的控制器
+                //.loginPage("/login_page").loginProcessingUrl("/login").failureUrl("/login_page").successForwardUrl("/")
+                .permitAll();
+    }
+
+    /**
+     * 支持 password 模式
+     */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

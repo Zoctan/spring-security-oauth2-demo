@@ -7,9 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
@@ -39,28 +37,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final HttpSecurity http) throws Exception {
         http
-                .requestMatchers().antMatchers("/oauth/**")
+                .requestMatchers().antMatchers("/oauth/**", "/login")
                 .and()
                 .authorizeRequests()
                 .antMatchers("/oauth/**").authenticated()
                 .and()
+                //.csrf().disable()
                 .formLogin()
                 // 跳转登录页面的控制器
-                .loginPage("/login")
-                .successHandler((httpServletRequest, httpServletResponse, authentication) -> {
-                    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                    if (principal instanceof UserDetails) {
-                        UserDetails user = (UserDetails) principal;
-                        System.out.println("loginUser:" + user.getUsername());
-                        // user 保存在 session
-                        httpServletRequest.getSession().setAttribute("userDetail", user);
-                        httpServletResponse.sendRedirect("/");
-                    }
-                })
+                //.loginPage("/login_page").loginProcessingUrl("/login").failureUrl("/login_page").successForwardUrl("/")
                 .permitAll();
-        //.and()
-        // 禁用CSRF，否则无法提交表单
-        //.csrf().disable();
     }
 
     /**

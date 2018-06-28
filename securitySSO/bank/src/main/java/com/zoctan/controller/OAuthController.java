@@ -1,7 +1,5 @@
 package com.zoctan.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.zoctan.entity.Result;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -108,15 +106,14 @@ public class OAuthController {
                 "code=%s" + "&" +
                 "redirect_uri=%s/bindingCallback", this.qqURL, code, this.bankURL);
         final String json = this.restTemplate.postForObject(getAccessTokenURL, null, String.class);
-        final Result result = JSON.parseObject(json, Result.class);
 
         // 通过 token 请求用户信息
-        final String getUserInfoURL = String.format("%s/getUserInfoByToken?" +
+        final String getUserURL = String.format("%s/user?" +
                 "access_token=%s", this.qqURL, "");
-        final String userInfo = this.restTemplate.getForObject(getUserInfoURL, String.class);
+        final String userInfo = this.restTemplate.getForObject(getUserURL, String.class);
 
         map.addAttribute("message", "成功获取授权");
-        map.addAttribute("result", result.toString());
+        map.addAttribute("result", json);
         map.addAttribute("userInfo", userInfo);
         modelAndView.setViewName("bindingCallback");
         return modelAndView;

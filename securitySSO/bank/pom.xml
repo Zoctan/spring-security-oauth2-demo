@@ -42,14 +42,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-
-        <!-- 银行子模块引用QQ子模块中的包 -->
-        <dependency>
-            <groupId>com.zoctan</groupId>
-            <artifactId>qq</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>

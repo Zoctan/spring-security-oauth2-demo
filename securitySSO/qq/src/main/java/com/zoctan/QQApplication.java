@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * QQ认证服务器
  *
  * @author Zoctan
- * @date 2018/06/22
+ * @date 2018/06/27
  */
 @SpringBootApplication
 public class QQApplication {

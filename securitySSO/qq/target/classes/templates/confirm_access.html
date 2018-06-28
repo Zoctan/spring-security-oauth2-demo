@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="base (title='QQ')">
+
+<style th:fragment="style">
+    .card {
+        width: 350px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -180px 0 0 -175px;
+    }
+</style>
+
+<div th:fragment="content">
+    <div class="card card">
+        <div class="card-header">QQ授权</div>
+        <div class="card-body">
+            <form id="confirmationForm" name="confirmationForm" th:action="@{/oauth/authorize}" method="post"><input
+                    name="user_oauth_approval" value="true" type="hidden"/>
+                <div th:each="scope: ${scopes}">
+                    <span th:text="${scope.key}">Some Scope</span>
+                    <span>
+                        <label th:for="${scope.key}"> 许可 </label>
+                        <input type="radio" value="true"
+                               th:name="${scope.key}"
+                               th:id="${scope.key}"
+                               th:checked="${scope.value}"/>
+                        </span>
+                    <span>
+                        <label th:for="${scope.key}"> 拒绝 </label>
+                        <input type="radio" value="false"
+                               th:name="${scope.key}"
+                               th:id="${scope.key}"
+                               th:checked="${!scope.value}"/>
+                    </span>
+                </div>
+                <button class="btn btn-primary" type="submit">确认并授权</button>
+            </form>
+            <p>请许可上述授权范围并点击确认并授权按钮继续。</p>
+        </div>
+    </div>
+</div>
+</html>
