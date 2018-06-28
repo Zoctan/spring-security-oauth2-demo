@@ -21,6 +21,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         // 所有请求都需要验证
         http
                 .authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .anyRequest().authenticated();
     }
 

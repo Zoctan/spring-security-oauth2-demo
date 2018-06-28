@@ -1,19 +1,25 @@
 package com.zoctan.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 认证服务配置
@@ -26,16 +32,21 @@ import javax.annotation.Resource;
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     @Resource
     private AuthenticationManager authenticationManager;
-    @Resource
-    private UserDetailsService userDetailsService;
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
     @Value("${client.id}")
     private String clientId;
     @Value("${client.secret}")
     private String clientSecret;
 
+    @Resource
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+    @Resource
+    private TokenEnhancer jwtTokenEnhancer;
+
     @Bean
     public TokenStore tokenStore() {
-        return new InMemoryTokenStore();
+        return new RedisTokenStore(this.redisConnectionFactory);
     }
 
     @Override
@@ -52,7 +63,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
         //----密码模式
-        // curl -i -X POST -d "username=user&password=123456&grant_type=password&client_id=resource&client_secret=resource123" http://localhost:8000/oauth/token
+        // curl -i -X POST -d "username=user&password=123456&grant_type=password&client_id=mail&client_secret=mail123" http://localhost:8000/oauth/token
 
         // 客户端信息保存在内存
         clients.inMemory()
@@ -67,7 +78,18 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .authenticationManager(this.authenticationManager)
-                .userDetailsService(this.userDetailsService)
                 .tokenStore(this.tokenStore());
+
+        //扩展token返回结果
+        if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
+            final TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+            final List<TokenEnhancer> enhancerList = new ArrayList();
+            enhancerList.add(jwtTokenEnhancer);
+            enhancerList.add(jwtAccessTokenConverter);
+            tokenEnhancerChain.setTokenEnhancers(enhancerList);
+            //jwt
+            endpoints.tokenEnhancer(tokenEnhancerChain)
+                    .accessTokenConverter(jwtAccessTokenConverter);
+        }
     }
 }
