@@ -16,19 +16,17 @@
     <div class="card loginCard">
         <div class="card-header">QQ登录</div>
         <div class="card-body">
-            <form th:action="${doLoginURL}" method="POST">
+            <form th:action="@{/doLogin}" method="POST">
                 <div class="form-group row">
                     <label for="username" class="col-sm-3 col-form-label">用户</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="username" id="username"
-                               th:value="${username}">
+                        <input type="text" class="form-control" name="username" id="username" value="user"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="password" class="col-sm-3 col-form-label">密码</label>
                     <div class="col-sm-9">
-                        <input type="password" class="form-control" name="password" id="password"
-                               th:value="${password}">
+                        <input type="password" class="form-control" name="password" id="password" value="123456"/>
                     </div>
                 </div>
                 <div class="form-group row">

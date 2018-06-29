@@ -20,27 +20,30 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Value("${oauth.username}")
+    @Value("${db.user.username}")
     private String username;
-    @Value("${oauth.password}")
+    @Value("${db.user.password}")
     private String password;
+    @Value("${db.user.role}")
+    private String role;
 
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {
         // 用户信息保存在内存
         final InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername(this.username).password(this.password).authorities("ROLE_USER").build());
+        manager.createUser(User.withUsername(this.username).password(this.password).roles(this.role).build());
         return manager;
     }
 
     @Override
     public void configure(final HttpSecurity http) throws Exception {
         http
-                .requestMatchers().antMatchers("/oauth/**", "/login")
-                .and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/oauth/**").authenticated();
+                .antMatchers("/oauth/**").authenticated()
+                .antMatchers("/js/**", "/css/**", "/login", "/doLogin").permitAll()
+                .anyRequest().authenticated();
     }
 
     /**

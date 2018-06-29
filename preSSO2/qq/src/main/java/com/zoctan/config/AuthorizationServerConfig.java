@@ -1,6 +1,5 @@
 package com.zoctan.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,15 +29,19 @@ import java.util.List;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    @Resource
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
     @Value("${client.id}")
     private String clientId;
     @Value("${client.secret}")
     private String clientSecret;
+    @Value("${client.resource.id}")
+    private String clientResourceId;
+    @Value("${client.scope}")
+    private String clientScope;
 
+    @Resource
+    private AuthenticationManager authenticationManager;
+    @Resource
+    private RedisConnectionFactory redisConnectionFactory;
     @Resource
     private JwtAccessTokenConverter jwtAccessTokenConverter;
     @Resource
@@ -69,9 +72,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         clients.inMemory()
                 .withClient(this.clientId)
                 .secret(this.clientSecret)
-                .resourceIds("user")
+                .resourceIds(this.clientResourceId)
                 .authorizedGrantTypes("password", "refresh_token")
-                .scopes("read");
+                .scopes(this.clientScope);
     }
 
     @Override
@@ -80,16 +83,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(this.authenticationManager)
                 .tokenStore(this.tokenStore());
 
-        //扩展token返回结果
-        if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
+        // 扩展token返回结果
+        if (this.jwtAccessTokenConverter != null && this.jwtTokenEnhancer != null) {
             final TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
             final List<TokenEnhancer> enhancerList = new ArrayList();
-            enhancerList.add(jwtTokenEnhancer);
-            enhancerList.add(jwtAccessTokenConverter);
+            enhancerList.add(this.jwtTokenEnhancer);
+            enhancerList.add(this.jwtAccessTokenConverter);
             tokenEnhancerChain.setTokenEnhancers(enhancerList);
-            //jwt
+            // jwt
             endpoints.tokenEnhancer(tokenEnhancerChain)
-                    .accessTokenConverter(jwtAccessTokenConverter);
+                    .accessTokenConverter(this.jwtAccessTokenConverter);
         }
     }
 }
