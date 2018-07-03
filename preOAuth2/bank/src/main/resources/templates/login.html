@@ -45,13 +45,14 @@
         </div>
     </div>
 
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        function toAuthorize() {
-            window.location.href = [[${toAuthorizeURL}]]
-        }
-
-        /*]]>*/
-    </script>
 </div>
+
+<script th:fragment="script" th:inline="javascript">
+    /*<![CDATA[*/
+    function toAuthorize() {
+        window.location.href = [[${toAuthorizeURL}]]
+    }
+
+    /*]]>*/
+</script>
 </html>

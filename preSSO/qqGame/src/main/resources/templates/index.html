@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="base (title='QQ游戏')">
+
+<style th:fragment="style">
+    .indexCard {
+        width: 350px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -180px 0 0 -175px;
+    }
+</style>
+
+<div th:fragment="content">
+    <div class="card indexCard">
+        <div class="card-header">QQ游戏</div>
+        <div class="card-body">
+            <p th:if="${token}" th:text="${token}" class="alert alert-success"></p>
+            <p th:if="${error}" th:text="${error}" class="alert alert-danger"></p>
+        </div>
+    </div>
+</div>
+</html>

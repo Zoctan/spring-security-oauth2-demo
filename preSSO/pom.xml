@@ -16,8 +16,9 @@
 
     <!-- 子模块 -->
     <modules>
-        <module>bank</module>
         <module>qq</module>
+        <module>qqMail</module>
+        <module>qqGame</module>
     </modules>
 
     <properties>
@@ -65,5 +66,5 @@
             </plugin>
         </plugins>
     </build>
-    
+
 </project>

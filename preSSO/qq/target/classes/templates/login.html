@@ -16,7 +16,7 @@
     <div class="card loginCard">
         <div class="card-header">QQ登录</div>
         <div class="card-body">
-            <form th:action="${loginURL}" method="POST">
+            <form th:action="@{/doLogin}" method="POST">
                 <div class="form-group row">
                     <label for="username" class="col-sm-3 col-form-label">用户</label>
                     <div class="col-sm-9">
@@ -34,7 +34,7 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <button id="loginBtn" type="submit" class="btn btn-primary form-control">
-                            授权登陆
+                            登陆
                         </button>
                     </div>
                 </div>
