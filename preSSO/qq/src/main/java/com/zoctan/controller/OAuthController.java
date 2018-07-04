@@ -70,13 +70,14 @@ public class OAuthController {
             response.sendRedirect(service + "?error=" + validate);
             return null;
         }
-        System.out.println("子系统请求 => " + subId);
+        System.out.print(subId + " 子系统请求 => ");
 
         // 127.0.0.1:8000/login?service=http://127.0.0.1:7000/index
         final HttpSession session = this.request.getSession();
         // 如果之前登录过
         final Object isLogin = session.getAttribute("isLogin");
         if (isLogin != null) {
+            System.out.println("登录过，带上 token 重定向回子系统");
             // 把 service 记录到 redis（为了之后单点注销）
             // 这里为了演示暂时不记录
 
@@ -86,6 +87,7 @@ public class OAuthController {
             response.sendRedirect(service + "?token=" + token);
             return null;
         }
+        System.out.println("未登录，显示登录界面");
 
         // 未登录，按正常登录进行
         // 记录下请求的子系统地址
@@ -110,6 +112,7 @@ public class OAuthController {
             return modelAndView;
         }
 
+        System.out.println("用户登录成功，带上 token 重定向回子系统");
         // 生成 token
         final String token = UUID.randomUUID().toString();
         // 在 Cookie 中设置 token
@@ -117,6 +120,7 @@ public class OAuthController {
         // token 缓存到 redis（方便验证过期）
         // 同样这里暂不缓存
 
+        // 全局 session
         final HttpSession session = this.request.getSession();
         // 设置用户已登录
         session.setAttribute("isLogin", true);

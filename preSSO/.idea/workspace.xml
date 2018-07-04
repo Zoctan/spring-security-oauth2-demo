@@ -19,8 +19,17 @@
       <file leaf-file-name="OAuthController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/qq/src/main/java/com/zoctan/controller/OAuthController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="72" column="33" selection-start-line="72" selection-start-column="33" selection-end-line="72" selection-end-column="33" />
+            <state relative-caret-position="396">
+              <caret line="122" column="21" selection-start-line="122" selection-start-column="21" selection-end-line="122" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/filter/LoginFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="44" column="16" lean-forward="true" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -34,6 +43,14 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>登陆</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>登录</replace>
+    </replaceStrings>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -44,19 +61,22 @@
         <option value="$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/BankApplication.java" />
         <option value="$PROJECT_DIR$/qqMail/src/main/resources/templates/login.html" />
         <option value="$PROJECT_DIR$/qqMail/pom.xml" />
-        <option value="$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/QQMailApplication.java" />
         <option value="$PROJECT_DIR$/qq/src/main/java/com/zoctan/util/CookieUtil.java" />
-        <option value="$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/controller/OAuthController.java" />
-        <option value="$PROJECT_DIR$/qqMail/src/main/resources/templates/index.html" />
         <option value="$PROJECT_DIR$/qqGame/pom.xml" />
-        <option value="$PROJECT_DIR$/qqMail/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/qq/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/QQMailApplication.java" />
         <option value="$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/filter/CorsFilter.java" />
-        <option value="$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/controller/OAuthController.java" />
-        <option value="$PROJECT_DIR$/qqGame/src/main/resources/templates/index.html" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/qqGame/src/main/resources/templates/index.html" />
+        <option value="$PROJECT_DIR$/qqMail/src/main/resources/templates/index.html" />
+        <option value="$PROJECT_DIR$/qqMail/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/qqGame/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/QQMailApplication.java" />
+        <option value="$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/QQGameApplication.java" />
+        <option value="$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/filter/LoginFilter.java" />
+        <option value="$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/filter/LoginFilter.java" />
+        <option value="$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/controller/OAuthController.java" />
+        <option value="$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/controller/OAuthController.java" />
         <option value="$PROJECT_DIR$/qq/src/main/java/com/zoctan/controller/OAuthController.java" />
       </list>
     </option>
@@ -88,9 +108,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -160,6 +177,78 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="preSSO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="preSSO" type="462c0819:PsiDirectoryNode" />
+              <item name="qqGame" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="preSSO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="preSSO" type="462c0819:PsiDirectoryNode" />
+              <item name="qqGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="preSSO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="preSSO" type="462c0819:PsiDirectoryNode" />
+              <item name="qqGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="preSSO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="preSSO" type="462c0819:PsiDirectoryNode" />
+              <item name="qqGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="preSSO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="preSSO" type="462c0819:PsiDirectoryNode" />
+              <item name="qqGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zoctan" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="preSSO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="preSSO" type="462c0819:PsiDirectoryNode" />
+              <item name="qqGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zoctan" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="preSSO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="preSSO" type="462c0819:PsiDirectoryNode" />
+              <item name="qqGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zoctan" type="462c0819:PsiDirectoryNode" />
+              <item name="filter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="preSSO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="preSSO" type="462c0819:PsiDirectoryNode" />
+              <item name="qqGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="preSSO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="preSSO" type="462c0819:PsiDirectoryNode" />
+              <item name="qqGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="preSSO" type="b2602c69:ProjectViewProjectNode" />
@@ -237,6 +326,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -255,6 +347,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.zoctan.filter" />
       <recent name="com.zoctan.util" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -273,7 +366,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.QQGameApplication">
+  <component name="RunManager" selected="Spring Boot.QQMailApplication">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -292,10 +385,6 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
-    </configuration>
-    <configuration name="BankApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="qqMail" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.zoctan.BankApplication" />
     </configuration>
     <configuration name="QQApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="qq" />
@@ -339,7 +428,6 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.QQApplication" />
-      <item itemvalue="Spring Boot.BankApplication" />
       <item itemvalue="Spring Boot.QQMailApplication" />
       <item itemvalue="Spring Boot.QQGameApplication" />
     </list>
@@ -361,15 +449,17 @@
       <updated>1530066083337</updated>
       <workItem from="1530066088691" duration="1328000" />
       <workItem from="1530599814219" duration="99000" />
-      <workItem from="1530599970919" duration="8785000" />
+      <workItem from="1530599970919" duration="8910000" />
+      <workItem from="1530664098736" duration="5754000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10212000" />
+    <option name="totallyTimeSpent" value="16091000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-28" width="1368" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32919255" />
@@ -383,19 +473,18 @@
       <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" />
+      <window_info anchor="bottom" id="Messages" order="8" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3478261" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.4021739" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32919255" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.25302115" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25302115" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32919255" />
       <window_info id="Learn" order="3" show_stripe_button="false" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -404,6 +493,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32919255" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -415,25 +505,20 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/qq/src/main/java/com/zoctan/controller/OAuthController.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1584">
+          <caret line="72" column="33" selection-start-line="72" selection-start-column="33" selection-end-line="72" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qq/src/main/java/com/zoctan/controller/OAuthController.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/qq/src/main/java/com/zoctan/entity/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qq/src/main/java/com/zoctan/entity/Result.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/qq/src/main/java/com/zoctan/entity/User.java" />
+    <entry file="file://$PROJECT_DIR$/qq/src/main/java/com/zoctan/entity/Result.java" />
     <entry file="file://$PROJECT_DIR$/qq/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
@@ -441,9 +526,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/qqMail/src/main/resources/templates/bindingCallback.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/qqMail/src/main/resources/templates/bindingCallback.html" />
     <entry file="file://$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/filter/CorsFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -465,13 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/QQMailApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/qq/src/main/java/com/zoctan/util/CookieUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -482,49 +558,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/controller/OAuthController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="50" column="9" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
-          <folding>
-            <element signature="e#646#656#1" expanded="true" />
-            <element signature="e#695#709#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qqMail/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="16" selection-start-column="16" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qqMail/src/main/resources/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/qqGame/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="572">
           <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qqGame/src/main/resources/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/controller/OAuthController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -542,20 +579,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/qqGame/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/QQGameApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/qq/src/main/java/com/zoctan/QQApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -565,15 +588,88 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/qq/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="61" selection-start-line="2" selection-start-column="61" selection-end-line="2" selection-end-column="61" />
+        <state relative-caret-position="132">
+          <caret line="6" column="28" lean-forward="true" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqGame/src/main/resources/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqGame/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" column="56" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqMail/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="18" column="56" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqMail/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="12" selection-start-line="12" selection-end-line="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqGame/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="14" lean-forward="true" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/QQGameApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/QQMailApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="12" selection-start-line="12" selection-end-line="12" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/controller/OAuthController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="40" column="48" lean-forward="true" selection-start-line="40" selection-start-column="48" selection-end-line="41" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/filter/LoginFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="48" column="46" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqGame/src/main/java/com/zoctan/controller/OAuthController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="41" column="45" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qqMail/src/main/java/com/zoctan/filter/LoginFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="44" column="16" lean-forward="true" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/qq/src/main/java/com/zoctan/controller/OAuthController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="72" column="33" selection-start-line="72" selection-start-column="33" selection-end-line="72" selection-end-column="33" />
+        <state relative-caret-position="396">
+          <caret line="122" column="21" selection-start-line="122" selection-start-column="21" selection-end-line="122" selection-end-column="21" />
         </state>
       </provider>
     </entry>
